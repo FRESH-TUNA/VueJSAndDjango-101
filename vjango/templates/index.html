@@ -10,6 +10,7 @@
         </div>
 
         <script src="https://unpkg.com/vue"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
         <script>
             new Vue({
                 delimiters: ['[[', ']]'],
@@ -24,9 +25,10 @@
                 methods: {
                     getArticles: function() {
                         this.loading = true;
-                        this.$http.get('/indexTest')
+                        this.$http.get('indexTest')
                             .then((response) => {
-                                this.days = response.data;
+                                console.log(response.data);
+                                this.days = response.data.days;
                                 this.loading = false;
                             })
                             .catch((err) => {
