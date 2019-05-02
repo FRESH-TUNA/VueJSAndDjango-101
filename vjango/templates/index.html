@@ -1,0 +1,41 @@
+<html>
+    <body>
+        <div id="app">
+                <p> [[ title ]] </p>
+                <ul>
+                    <li v-for="day in days">
+                        <h4> Day [[ day ]]</h4>
+                    </li>
+                </ul>
+        </div>
+
+        <script src="https://unpkg.com/vue"></script>
+        <script>
+            new Vue({
+                delimiters: ['[[', ']]'],
+                el: '#app',
+                data: {
+                    title: 'Welcome to My Journal',
+                    days: []
+                },
+                mounted: function() {
+                    this.getArticles();
+                },
+                methods: {
+                    getArticles: function() {
+                        this.loading = true;
+                        this.$http.get('/indexTest')
+                            .then((response) => {
+                                this.days = response.data;
+                                this.loading = false;
+                            })
+                            .catch((err) => {
+                                this.loading = false;
+                                console.log(err);
+                            })
+                        },
+                }
+            })
+        </script>
+    </body>
+</html>
